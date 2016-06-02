@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "babel-node tools/startMessage.js",
+    "start": "babel-node tools/srcServer.js",
+    "lint": "node_modules/.bin/esw webpack.config.* src tools"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +41,7 @@
     "eslint": "^2.11.1",
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-react": "^5.1.1",
+    "eslint-watch": "^2.1.11",
     "eventsource-polyfill": "^0.9.6",
     "expect": "^1.20.1",
     "express": "^4.13.4",
