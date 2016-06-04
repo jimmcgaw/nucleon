@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { PropTypes } from 'react';
+import  { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as bookActions from '../../actions/bookActions';
@@ -23,7 +23,8 @@ class BooksPage extends React.Component {
   }
   
   onClickSave(){
-    this.props.dispatch(bookActions.createBook(this.state.book));
+//    this.props.dispatch(bookActions.createBook(this.state.book));
+    this.props.actions.createBook(this.state.book);
   }
   
   bookRow(book, index) {
@@ -43,6 +44,12 @@ class BooksPage extends React.Component {
   }
 }
 
+BooksPage.propTypes = {
+//  dispatch: PropTypes.func.isRequired,
+  books: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
 function mapStateToProps(state, ownProps) {
   return {
     books: state.books
@@ -50,4 +57,13 @@ function mapStateToProps(state, ownProps) {
 }
 
 
-export default connect(mapStateToProps)(BooksPage);
+function mapDispatchToProps(dispatch){
+//  return {
+//    createBook: book => dispatch(bookActions.createBook(book))
+//  }
+  return {
+    actions: bindActionCreators(bookActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksPage);
